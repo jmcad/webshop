@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block content %}
+<main>
+    <div class="cart-wrapper">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="error">
+            {% for msg in messages %}
+            {{ msg }}
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <h1 class="headers">Cart</h1>
+
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Size</th>
+                        <th>Count</th>
+                        <th>Price</th>
+                        <th>Discount</th>
+                        <th>Discounted Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart.values() %}
+                    <tr>
+                        <td>{{ item.title }}</td>
+                        <td>{{ item.size }}</td>
+                        <td>{{ item.count }}</td>
+                        <td>{{ item.price }}</td>
+                        <td>{{ item.discount }}</td>
+                        <td>{{ item.count|int * item.total|float }} kr</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td>Totals</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{ total }} kr</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <h1 class="headers">Checkout</h1>
+
+        <div class="fieldset-wrapper">
+            <form action="/checkout2" method="POST">
+                <fieldset class="field-info">
+                    <legend>Billing details</legend>
+                    <div>
+                        <label for="firstname">First name</label>
+                        <input type="text" name="first_name" id="firstname" value="{{ firstname }}" readonly>
+                    </div>
+
+                    <div>
+                        <label for="lastname">Last name</label>
+                        <input type="text" name="last_name" id="lastname" value="{{ lastname }}" readonly>
+                    </div>
+
+                    <div>
+                        <label for="email">Email address</label>
+                        <input type="email" name="email" id="email" value="{{ email }}" readonly>
+                    </div>
+                </fieldset>
+
+                <fieldset class="field-info">
+                    <legend>Delivery adress</legend>
+                    <div>
+                        <label for="street">Street</label>
+                        <input type="text" name="street" id="street" value="{{ street }}" readonly>
+                    </div>
+
+                    <div>
+                        <label for="city">City</label>
+                        <input type="text" name="city" id="street" value="{{ city }}" readonly>
+                    </div>
+
+                    <div>
+                        <label for="postal_code">Postal Code</label>
+                        <input type="text" name="postal" id="postal_code" value="{{ postalcode }}" readonly>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Terms of service</legend>
+                    <input type="checkbox" id="radio" name="AGB" checked disabled required>
+                    <span>I agree to the general terms of service.</span>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Submit order</legend>
+                    <button type="submit" class="button-submit">Submit</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}

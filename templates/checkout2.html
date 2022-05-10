@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<main>
+
+    <div class="cart-wrapper">
+        <h1 class="headers">Your Order</h1>
+        <div class="message-wrapper">
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div>
+                {% for msg in messages %}
+                <h1 class="success">{{ msg }}</h1>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+
+
+        </div>
+    </div>
+</main>
+{% endblock %}

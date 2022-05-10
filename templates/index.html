@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <main>
+        <div>
+            <div class="banner">
+                <img src="/static/images/boxes.jpg" alt="saleboxes">
+                <div class="banner-header">
+                    <h1>HUGE SALE!</h1>
+                </div>
+            </div>
+            <div class="product-content">
+            {% for product in products %}
+                <div class="item-wrapper">
+                    <a href="/product/{{product.pid}}">
+                        <article>
+                    {% if product.discount > 0 %}
+                            <span class="discount-badge">{{product.discount}}%</span>
+                    {% endif %}
+
+                            <img src="{{ '/static/images/' + product.img }}" alt="air_vapormax_plus">
+                            <div>
+                                <h3 class="product-name"><span>{{ product.title }}</span></h3>
+                                <h3 class="product-price"><span>{{ product.price }},-</span></h3>
+                                <p class="product-text">{{ product.description }}</p>
+                            </div>
+                        </article>
+                    </a>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+
+        <aside>
+            <h2><a href="/cart">Cart</a></h2>
+            <div class="asidetablewrapper">
+            {% if cart is defined %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Size</th>
+                            <th>Qty</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in cart.values() %}
+                        <tr>
+                            <td>{{ item.title }}</td>
+                            <td>{{ item.size }}</td>
+                            <td>{{ item.count }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+            </div>
+        </aside>
+    </main>
+{% endblock %}

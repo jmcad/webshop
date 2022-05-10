@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+
+<main>
+    <div>
+        <div class="product-wrapper">
+            <div class="product">
+                {% if product.discount > 0 %}
+                <span class="discount-badge">{{ product.discount }}%</span>
+                {% endif %}
+                <img src="{{ '/static/images/' + product.img }}">
+            </div>
+
+            <div class="product-info">
+
+                <h3 class="product-name"><span>{{ product.title }}</span></h3>
+                <h3 class="product-price"><span>{{ product.price }},-</span></h3>
+
+                <p class="product-text">{{ product.description }}</p>
+                <div class="product-selection">
+                    <form action="/add" id="product_form" method="POST">
+                        <input type="hidden" name="pid" value="{{ product.pid }}">
+                        <label for="count">Count:</label>
+                        <input type="number" min="1" max="3" name="count" value="1"></label>
+                        <label for="size">Size:</label>
+                        <select name="size">
+                            <option value="S">36-38</option>
+                            <option value="M">39-41</option>
+                            <option value="L">42-44</option>
+                            <option value="XL">45-47</option>
+                        </select>
+                        <br>
+                        <label for="price">Price:</label>
+                        <input type="text" readonly value="{{ product.total }}">
+                        <br />
+                        <button type="submit" form="product_form" class="button-add">Add to cart</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <h1 class="headers">Details</h1>
+
+        <div id="details-box">
+            <p>{{ product.details }}</p>
+        </div>
+    </div>
+
+    <aside>
+        <h2><a href="/cart">Cart</a></h2>
+        <div class="asidetablewrapper">
+            {% if cart is defined %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Size</th>
+                        <th>Qty</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart.values() %}
+                    <tr>
+                        <td>{{ item.title }}</td>
+                        <td>{{ item.size }}</td>
+                        <td>{{ item.count }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </aside>
+</main>
+{% endblock %}

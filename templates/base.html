@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Webshop</title>
+    <link rel="stylesheet" href="{{ url_for("static", filename="style.css") }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <h1>Elite Urban</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/"><i class="material-icons">home</i></a></li>
+                <li><a href="/product/1"><i class="material-icons">shop</i></a></li>
+                <li><a href="/cart"><i class="material-icons">shopping_cart</i></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    {% block content %}
+    <main></main>
+    {% endblock %}
+
+    <footer>
+        <p>Customer Service:| +47 483 30 003 | jmcadinez@gmail.com</p>
+    </footer>
+</body>
+
+</html>
